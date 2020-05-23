@@ -13,7 +13,7 @@ Compile `julia` with `gcc src/julia.c -o bin/julia -lm`
 
 Run `julia` and pipe the output to `graph` using these benchmark settings:
 ```
-bin/julia -w 1024 -h 1024 -n 384 -b 1024 -x 3 -y 3 -u -1.5 -v -1.5 -r -0.757730701301672 -i 0.121160627920417 | 	bin/graph -w 1024 -h 1024 -p palette/flowers -s 0 -r 8192 > j.ppm
+bin/julia -w 1024 -h 1024 -n 384 -b 1024 -x 3 -y 3 -u -1.5 -v -1.5 -r -0.757730701301672 -i 0.121160627920417 | bin/graph -w 1024 -h 1024 -p palette/flowers -s 0 -r 8192 > j.ppm
 ```
 Open `j.ppm` with an image viewer and inspect the result.
 
