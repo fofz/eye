@@ -1,5 +1,5 @@
-# wfep
-Wes Small's Fractal Exploration Project
+# WFE
+Wes Small's Fractal Explorer
 
 ## Linux Build Tutorial
 Build the programs by running `make`. This will create `bin/julia`, `bin/mandelbrot` and `bin/graph`.
