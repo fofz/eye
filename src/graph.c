@@ -5,22 +5,18 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include "wdex.h"
 #include "dither.h"
 
 #define PSIZE 0x1000
-int width, height, i, opt; double iscale, ishift, *ib;
+vec2i size; int i, opt; double iscale, ishift, *ib;
 struct { uint8_t r, g, b; } p[PSIZE], *ob;
 char pfname[32], h[32], *k1; FILE *pf, *of;
 
 int main(int argc, char **argv) {
 	/* parse arguments */
 	do switch(opt = getopt(argc, argv, "r:p:s:t:")) {
-	case 'r':
-		k1 = strtok(optarg, "x");
-		if(k1 != NULL) width = atoi(k1); else return 3;
-		k1 = strtok(NULL, ""); 
-		if(k1 != NULL) height = atoi(k1); else return 3; 
-		break;
+	case 'r': size = atovec2i(optarg, "x"); break;
 	case 'p': strcpy(pfname, optarg); break;
 	case 's': iscale = atof(optarg); break;
 	case 't': ishift = atof(optarg); break;
@@ -37,7 +33,7 @@ int main(int argc, char **argv) {
 	fclose(pf);
 	
 	/* size constants (for malloc, read, write, etc) */
-	const size_t area = width * height, 
+	const size_t area = size.x * size.y, 
 	             ibsize = area * sizeof(double), 
 	             obsize = area * 3;
 	             
@@ -53,7 +49,7 @@ int main(int argc, char **argv) {
 		];
 		
 	of = fopen(argv[optind], "wb");
-	fprintf(of, "P6 %d %d 255 ", width, height);
+	fprintf(of, "P6 %d %d 255 ", size.x, size.y);
 	fwrite(ob, sizeof(double), area, of);
 	fclose(of);
 	return 0;

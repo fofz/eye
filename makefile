@@ -6,7 +6,7 @@ bin/graph: src/graph.c include/dither.h | bin
 	cc -w -O2 src/graph.c -o bin/graph -lm -Iinclude
 
 bin/julia: src/julia.c | bin
-	cc -w -O2 src/julia.c -o bin/julia -lm
+	cc -w -O2 src/julia.c -o bin/julia -lm -Iinclude
 	
 bin/mandelbrot: src/julia.c | bin
 	cc -w -O2 -D MANDELBROT src/julia.c -o bin/mandelbrot -lm
