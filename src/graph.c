@@ -10,7 +10,7 @@
 #define PSIZE 0x1000
 int width, height, i, opt; double iscale, ishift, *ib;
 struct { uint8_t r, g, b; } p[PSIZE], *ob;
-char pfname[32], h[32], *k1; FILE *pf;
+char pfname[32], h[32], *k1; FILE *pf, *of;
 
 int main(int argc, char **argv) {
 	/* parse arguments */
@@ -26,6 +26,8 @@ int main(int argc, char **argv) {
 	case 't': ishift = atof(optarg); break;
 	default: break;
 	} while(opt != -1);
+	
+	if(argv[optind] == NULL) return 4; // no output specified
 	
 	/* load palette from file */
 	if(strlen(pfname) == 0) return 2;
@@ -50,7 +52,9 @@ int main(int argc, char **argv) {
 		  % PSIZE
 		];
 		
-	/* write ppm file header followed by output */
-	sprintf(h, "P6 %d %d 255 ", width, height);
-	write(1, h, strlen(h));	write(1, ob, obsize);
+	of = fopen(argv[optind], "wb");
+	fprintf(of, "P6 %d %d 255 ", width, height);
+	fwrite(ob, sizeof(double), area, of);
+	fclose(of);
+	return 0;
 }
