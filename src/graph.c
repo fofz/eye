@@ -8,18 +8,22 @@
 #include "dither.h"
 
 #define PSIZE 0x1000
-int width, height, i, opt; double *ib; size_t pshift, prange;
+int width, height, i, opt; double iscale, ishift, *ib;
 struct { uint8_t r, g, b; } p[PSIZE], *ob;
-char pfname[32], h[32]; FILE *pf;
+char pfname[32], h[32], *k1; FILE *pf;
 
 int main(int argc, char **argv) {
 	/* parse arguments */
-	do switch(opt = getopt(argc, argv, "w:h:p:s:r:")) {
-	case 'w': width = atoi(optarg); break;
-	case 'h': height = atoi(optarg); break;
+	do switch(opt = getopt(argc, argv, "r:p:s:t:")) {
+	case 'r':
+		k1 = strtok(optarg, "x");
+		if(k1 != NULL) width = atoi(k1); else return 3;
+		k1 = strtok(NULL, ""); 
+		if(k1 != NULL) height = atoi(k1); else return 3; 
+		break;
 	case 'p': strcpy(pfname, optarg); break;
-	case 's': pshift = atoi(optarg); break;
-	case 'r': prange = atoi(optarg); break;
+	case 's': iscale = atof(optarg); break;
+	case 't': ishift = atof(optarg); break;
 	default: break;
 	} while(opt != -1);
 	
@@ -42,7 +46,7 @@ int main(int argc, char **argv) {
 	ob = malloc(obsize); if(ob == NULL) return 1;
 	for(i = 0; i < area; ++i)
 		ob[i] = p[
-			(size_t)(ib[i] * prange + pshift + dv[(i % 17 + i / 23) % DVSIZE])
+			(size_t)(ib[i] * iscale + ishift + dv[(i % 17 + i / 23) % DVSIZE])
 		  % PSIZE
 		];
 		
