@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <math.h>
+#include <stdio.h>
+#include <string.h>
 
 /* #define MANDELBROT */
 #define SMOOTH
@@ -9,20 +11,37 @@
 int width, height, x, y, i, imax, opt;
 double zr, zi, cr, ci, t1, t2, t3, bailout,
        xscale, yscale, xoffset, yoffset, *ob;
+char *k1;
 
 int main(int argc, char **argv) {
 	/* parse arguments */
-	do switch(opt = getopt(argc, argv, "w:h:x:y:u:v:n:b:r:i:")) {
-	case 'w': width = atoi(optarg); break;
-	case 'h': height = atoi(optarg); break;
-	case 'x': xscale = atof(optarg); break;
-	case 'y': yscale = atof(optarg); break;
-	case 'u': xoffset = atof(optarg); break;
-	case 'v': yoffset = atof(optarg); break;
+	do switch(opt = getopt(argc, argv, "r:s:t:n:b:c:")) {
+	case 'r':
+		k1 = strtok(optarg, "x");
+		if(k1 != NULL) width = atoi(k1); else return 3;
+		k1 = strtok(NULL, ""); 
+		if(k1 != NULL) height = atoi(k1); else return 3; 
+		break;
+	case 's':
+		k1 = strtok(optarg, "x");
+		if(k1 != NULL) xscale = atof(k1); else return 3;
+		k1 = strtok(NULL, ""); 
+		if(k1 != NULL) yscale = atof(k1); else return 3; 
+		break;
+	case 't':
+		k1 = strtok(optarg, "+");
+		if(k1 != NULL) xoffset = atof(k1); else return 3;
+		k1 = strtok(NULL, "i"); 
+		if(k1 != NULL) yoffset = atof(k1); else return 3; 
+		break;
 	case 'n': imax = atoi(optarg); break;
 	case 'b': bailout = atof(optarg); break;
-	case 'r': cr = atof(optarg); break;
-	case 'i': ci = atof(optarg); break;
+	case 'c':
+		k1 = strtok(optarg, "+");
+		if(k1 != NULL) cr = atof(k1); else return 3;
+		k1 = strtok(NULL, "i"); 
+		if(k1 != NULL) ci = atof(k1); else return 3; 
+		break;
 	default: break;
 	} while(opt != -1);
 	
