@@ -1,4 +1,4 @@
-all: bin/graph bin/julia
+all: bin/graph
 
 test: test.ppm
 
