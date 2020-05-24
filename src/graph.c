@@ -9,9 +9,12 @@
 #include "dither.h"
 
 #define PSIZE 0x1000
-vec2i size; int i, opt; uint8_t *ib; size_t shift;
-struct { uint8_t r, g, b; } p[PSIZE], *ob;
-char pfname[32], h[32], *k1; FILE *pf;
+vec2i size; 
+int i, shift, opt;
+char pfname[32]; 
+FILE *pf;
+uint8_t *ib;
+rgb24 p[PSIZE], *ob;
 
 int main(int argc, char **argv) {
 	/* parse arguments */
@@ -34,9 +37,16 @@ int main(int argc, char **argv) {
 	             ibsize = area, 
 	             obsize = area * 3;
 	             
-	ib = malloc(ibsize); if(ib == NULL) return 1; read(0, ib, ibsize);
-	ob = malloc(obsize); if(ob == NULL) return 1;
-	for(i = 0; i < area; ++i) ob[i] = p[((size_t)ib[i] + shift) % PSIZE];
+	/* allocate memory, read input, transform, write output */
+	ib = malloc(ibsize); 
+	if(ib == NULL) return 1; 
+	read(0, ib, ibsize);
+	ob = malloc(obsize); 
+	if(ob == NULL) return 1;
+	for(i = 0; i < area; ++i) {
+		int j = (int)ib[i] + shift % PSIZE;
+		ob[i] = p[(j < 0 ? j + PSIZE : j)];
+	}
 	write(1, ob, obsize);
 	return 0;
 }
