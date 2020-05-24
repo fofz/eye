@@ -25,12 +25,9 @@ int main(int argc, char **argv) {
 	case 'c': c = atocompd(optarg, "+"); break;
 	default: break;
 	} while(opt != -1);
-	
-	/* size constants (for malloc, write, etc) */
-	const size_t area = size.x * size.y, obsize = area;
-	
+
 	/* create data */
-	ob = malloc(obsize);
+	ob = malloc(size.x * size.y);
 	for(y = 0; y < size.y; ++y) for(x = 0; x < size.x; ++x) {
 		z.re = (double)x / size.x * scale.x + offset.re; 
 		z.im = (double)y / size.y * scale.y + offset.im;
@@ -56,6 +53,6 @@ int main(int argc, char **argv) {
 	}
 	
 	/* write output */
-	write(1, ob, obsize);
+	if(write(1, ob, size.x * size.y) < 0) return 2;
 	return 0;
 }

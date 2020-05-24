@@ -19,24 +19,19 @@ int main(int argc, char **argv) {
 	case 's': shift = atoi(optarg); break;
 	default: break;
 	} while(opt != -1);
-	
-	/* size constants (for malloc, read, write, etc) */
-	const size_t area = size.x * size.y, 
-	             ibsize = area, 
-	             obsize = area * 3;
 	             
 	/* allocate memory, read input, transform, write output */
-	ib = malloc(ibsize); 
+	ib = malloc(size.x * size.y); 
 	if(ib == NULL) return 1; 
-	read(0, ib, ibsize);
-	ob = malloc(obsize); 
+	if(read(0, ib, size.x * size.y) < 0) return 1;
+	ob = malloc(3 * size.y * size.y); 
 	if(ob == NULL) return 1;
-	for(i = 0; i < area; ++i) {
+	for(i = 0; i < size.x * size.y; ++i) {
 		const uint8_t k = ib[i] + shift;
 		ob[i * 3    ] = p[k * 3    ];
 		ob[i * 3 + 1] = p[k * 3 + 1];
 		ob[i * 3 + 2] = p[k * 3 + 2];
 	}
-	write(1, ob, obsize);
+	if(write(1, ob, 3 * size.x * size.y) < 0) return 1;
 	return 0;
 }

@@ -4,7 +4,7 @@ typedef struct { int x, y; } vec2i;
 typedef struct { double x, y; } vec2d;
 typedef struct { double re, im; } compd;
 
-static char atobuf[64]; // used by ato functions (do not touch)
+static char atobuf[64]; /* used by ato functions (do not touch) */
 
 /*	returns vec2i conversion of string containing two integral numbers
 	returns zero-initialized vec2i if no valid conversion is perfermod */
