@@ -28,6 +28,7 @@ int main(int argc, char **argv) {
 
 	/* create data */
 	ob = malloc(size.x * size.y);
+	if(ob == NULL) return 1;
 	for(y = 0; y < size.y; ++y) for(x = 0; x < size.x; ++x) {
 		z.re = (double)x / size.x * scale.x + offset.re; 
 		z.im = (double)y / size.y * scale.y + offset.im;
