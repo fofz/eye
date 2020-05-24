@@ -18,7 +18,7 @@ bin/julia -r 1024x1024 -s 3x3 -t -1.5+-1.5i -n 384 -b 1024 -c -0.757730701301672
 Open `test.ppm` with an image viewer and inspect the result.
 
 ## Using `graph`
-`graph` reads bytes from `stdin` and creates a 24-bit rgb image by indexing a 24-bit color palette with the input values. The output is written to a file as a binary PPM image. `graph` requires command line arguments. The first argument that is not an option specifies the output file destination. For example `graph out.ppm` will output to `out.ppm` Options include:
-* `-r` size e.g. `-r 320x240'
-* `-p` palette e.g. `-p palette/flowers`
-* `-s` shift e.g. `-s 640` to shift the palette by 640 positions
+`graph` reads bytes from `stdin` and creates a 24-bit rgb image by indexing a 24-bit color palette with the input values. The output is written to a file as a binary PPM image. `graph` requires command line arguments. The first argument that is not an option specifies the output file. For example `graph out.ppm` will write to `out.ppm` Options for `graph` include:
+* `-r` size e.g. `-r 320x240` specify the size of the image
+* `-p` palette e.g. `-p palette/flowers` specify the palette
+* `-s` shift e.g. `-s 640` shift the palette by 640 positions
