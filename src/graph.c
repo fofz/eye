@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 	
 	/* transform input */
 	ob = malloc(obsize); if(ob == NULL) return 1;
-	for(i = 0; i < area; ++i) ob[i] = p[((size_t)(ib[i]) + shift) % PSIZE];
+	for(i = 0; i < area; ++i) ob[i] = p[((size_t)ib[i] + shift) % PSIZE];
 		
 	of = fopen(argv[optind], "wb");
 	fprintf(of, "P6 %d %d 255 ", size.x, size.y);
