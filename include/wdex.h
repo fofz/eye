@@ -3,7 +3,6 @@
 typedef struct { int x, y; } vec2i;
 typedef struct { double x, y; } vec2d;
 typedef struct { double re, im; } compd;
-typedef struct { uint8_t r, g, b; } rgb24;
 
 static char atobuf[64]; // used by ato functions (do not touch)
 
