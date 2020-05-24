@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 	ob = malloc(obsize); 
 	if(ob == NULL) return 1;
 	for(i = 0; i < area; ++i) {
-		int j = (int)ib[i] + shift % PSIZE;
+		const int j = (int)ib[i] + shift % PSIZE;
 		ob[i] = p[(j < 0 ? j + PSIZE : j)];
 	}
 	write(1, ob, obsize);
