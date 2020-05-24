@@ -4,13 +4,14 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 #include "wdex.h"
 
 /* #define MANDELBROT */
 #define SMOOTH
 
 vec2i size; int x, y, i, imax, opt;
-vec2d scale; compd z, c, offset; double t1, t2, t3, bailout, *ob;
+vec2d scale; compd z, c, offset; double t1, t2, t3, bailout; uint8_t *ob;
 char *k1;
 
 int main(int argc, char **argv) {
@@ -26,7 +27,7 @@ int main(int argc, char **argv) {
 	} while(opt != -1);
 	
 	/* size constants (for malloc, write, etc) */
-	const size_t area = size.x * size.y, obsize = area * sizeof(double);
+	const size_t area = size.x * size.y, obsize = area;
 	
 	/* create data */
 	ob = malloc(obsize);
@@ -44,14 +45,13 @@ int main(int argc, char **argv) {
 			z.im = t1 + t2 + c.im;
 		}
 		#ifdef SMOOTH
-		ob[x + y * size.x] = fmin(
+		ob[x + y * size.x] = (
 			(double)i 
 		  - log(log(sqrt((z.re * z.re) + (z.im * z.im))) / log(bailout))
-		  / log(2),
-		  	imax
-		) / imax;
+		  / log(2)
+		) / imax * 0xff;
 		#else
-		ob[x + y * size.x] = (double)i / imax;
+		ob[x + y * size.x] = (double)i / imax * 0xff;
 		#endif
 	}
 	
