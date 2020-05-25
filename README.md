@@ -1,8 +1,6 @@
 ## Compiling the programs
 ### Make
-Run `make` to compile `palette`, `graph`, `dither`, `dtou16`, `normalize` and `julia`
-
-All of the compiled programs will be in `bin`
+Run `make` to compile `palette`, `graph`, `dither`, `dtou16`, `normalize` and `julia`. All of the compiled programs will be in `bin`
 
 ## Using `graph`
 `graph` reads bytes from `stdin` and uses a 256-color palette to map the input to a 24-bit RGB image. The output is written to `stdout` as 3-byte RGB tripplets. `graph` requires an `-r` option to specify the size of the image. Options include:
@@ -11,4 +9,6 @@ All of the compiled programs will be in `bin`
 * `-s` pshift e.g. `-s 107` shift the palette by 107 positions
 
 ## Demo
-Run `./demo.sh` to create `palette.data`, `julia.data`, `banner.jpg` and `animation.gif`
+Running `demo.sh` requires Make and ImageMagick to be installed. To install them, run `sudo apt install make imagemagick`. 
+
+Run `./demo.sh` to create `palette.data`, `julia.data`, `banner.jpg` and `animation.gif`. If `demo.sh` requires elevated privilages, try running `chmod 755 demo.sh` first.
