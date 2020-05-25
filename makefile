@@ -21,8 +21,5 @@ bin/julia: src/julia.c include/wdex.h | bin
 bin:
 	mkdir bin
 	
-res:
-	mkdir res
-	
 clean:
-	rm -rf bin data frames banner.jpg animation.gif
+	rm -rf bin
