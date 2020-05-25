@@ -11,7 +11,7 @@
 #define SMOOTH
 
 vec2i size; int x, y, i, imax, opt;
-vec2d scale; compd z, c, offset; double t1, t2, t3, bailout; uint8_t *ob;
+vec2d scale; compd z, c, offset; double t1, t2, t3, bailout; uint16_t *ob;
 char *k1;
 
 int main(int argc, char **argv) {
@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 	} while(opt != -1);
 
 	/* create data */
-	ob = malloc(size.x * size.y);
+	ob = malloc(2 * size.x * size.y);
 	if(ob == NULL) return 1;
 	for(y = 0; y < size.y; ++y) for(x = 0; x < size.x; ++x) {
 		z.re = (double)x / size.x * scale.x + offset.re; 
@@ -47,13 +47,13 @@ int main(int argc, char **argv) {
 			(double)i 
 		  - log(log(sqrt((z.re * z.re) + (z.im * z.im))) / log(bailout))
 		  / log(2)
-		) / imax * 0xff;
+		) / imax * 0xffff;
 		#else
-		ob[x + y * size.x] = (double)i / imax * 0xff;
+		ob[x + y * size.x] = (double)i / imax * 0xffff;
 		#endif
 	}
 	
 	/* write output */
-	if(write(1, ob, size.x * size.y) < 0) return 2;
+	if(write(1, ob, 2 * size.x * size.y) < 0) return 2;
 	return 0;
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct { int x, y; } vec2i;
 typedef struct { double x, y; } vec2d;
