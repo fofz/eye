@@ -8,10 +8,8 @@ double min, max, *in, *out;
 
 int main(int argc, char **argv) {
 	/* parse arguments */
-	do switch(opt = getopt(argc, argv, "r:")) {
-	case 'r': size = atovec2i(optarg, "x"); break;
-	default: break;
-	} while(opt != -1);
+	while((opt = getopt(argc, argv, "r:")) != -1)
+		if(opt == 'r') size = atovec2i(optarg, "x");
 	
 	in = malloc(sizeof(double) * size.x * size.y); if(in == NULL) return 1;
 	out = malloc(sizeof(double) * size.x * size.y); if(out == NULL) return 2;
