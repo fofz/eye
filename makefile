@@ -1,4 +1,4 @@
-all: bin/graph
+all: bin/palette bin/graph bin/dither bin/dtou16 bin/normalize bin/julia
 
 test: res/test.data res/test.ppm
 
