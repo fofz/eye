@@ -1,10 +1,9 @@
-make; 
-mkdir data;
-bin/palette -n 256 > data/palette.data; 
-bin/julia -r 320x320 -s 3x3 -t -1.5+-1.5i -n 256 -b 256 -c -0.757730701301672+0.121160627920417i | bin/normalize -r 320x320 | bin/dtou16 -r 320x320 | bin/dither -r 320x320 > data/julia.data;
-mkdir frames;
-for i in {0..127}; 
-do (echo "P6 320 320 255" > frames/$(printf "%03d" $i).ppm; cat data/palette.data data/julia.data | bin/graph -r 320x320 -n 256 -s $((i * 2)) >> frames/$(printf "%03d" $i).ppm); 
+make;
+bin/palette -n 256 > palette.data; 
+bin/julia -r 240x240 -s 3x3 -t -1.5+-1.5i -n 256 -b 256 -c -0.757730701301672+0.121160627920417i | bin/normalize -r 240x240 | bin/dtou16 -r 240x240 | bin/dither -r 240x240 > julia.data;
+for i in {0..31}; 
+do (echo "P6 240 240 255" > $(printf "%03d" $i).ppm; cat palette.data julia.data | bin/graph -r 240x240 -n 256 -s $((i * 8)) >> $(printf "%03d" $i).ppm); 
 done; 
-montage frames/*.ppm -tile 16x8 -geometry 80x80+0+0 banner.jpg;
-convert -delay 4 frames/*.ppm animation.gif;
+montage *.ppm -tile 8x4 -geometry 80x80+0+0 banner.jpg;
+convert -delay 4 *.ppm animation.gif;
+rm *.ppm
