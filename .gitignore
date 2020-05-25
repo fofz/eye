@@ -1,5 +1,6 @@
-banner.jpg
-animation.gif
 bin
-data
-frames
+*.data
+*.ppm
+*.jpg
+*.png
+*.gif
