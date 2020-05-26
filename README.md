@@ -18,6 +18,6 @@ graph -r 1024x1024 -n 256 -s 107 < cat palette.data in.data >> out.ppm
 `out.ppm` can be viewed with an image viewer.
 
 ## Demo
-Running `demo.sh` requires Make and ImageMagick. Ubuntu users can install the required software with `sudo apt install make imagemagick`. 
+Running `demo.sh` requires ImageMagick. Ubuntu users can install ImageMagick with `sudo apt install imagemagick`. 
 
 Run `./demo.sh` to create `palette.data`, `julia.data`, `banner.jpg` and `animation.gif`. If elevated privilages are required, try running `chmod 755 demo.sh` first.
