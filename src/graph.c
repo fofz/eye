@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include "wdex.h"
+#include "util.h"
 
 vec2i size; 
 int i, opt; 

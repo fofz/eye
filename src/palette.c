@@ -2,7 +2,7 @@
 #include <getopt.h>
 #include <stdint.h>
 #include <math.h>
-#include "wdex.h"
+#include "util.h"
 
 size_t size; int i, opt; uint8_t *out;
 

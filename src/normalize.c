@@ -1,6 +1,6 @@
 #include <unistd.h>
 #include <getopt.h>
-#include "wdex.h"
+#include "util.h"
 
 vec2i size;
 int i, opt;

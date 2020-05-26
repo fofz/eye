@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include "wdex.h"
+#include "util.h"
 
 /* #define MANDELBROT */
 #define SMOOTH
